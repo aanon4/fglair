@@ -196,7 +196,7 @@ class Api {
                         dsn: dsn,
                         name: "adjust_temperature",
                         datapoint: {
-                            value: Math.round(value * 10)
+                            value: Math.round(value * 2) * 5
                         }
                     });
                     break;
