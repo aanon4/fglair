@@ -1,0 +1,22 @@
+{
+  "name": "fglair",
+  "version": "1.0.0",
+  "description": "FGLAir API Client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aanon4/fglair.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aanon4/fglair/issues"
+  },
+  "homepage": "https://github.com/aanon4/fglair#readme",
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
