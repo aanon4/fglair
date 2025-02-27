@@ -86,12 +86,15 @@ class Api {
                 })
             });
             const json = await res.json();
-            if (json.errors) {
-                throw new Error(json.errors[0].message);
+            if (json.error) {
+                // If refresh fails, login again
+                await this.login();
             }
-            this.access = json.access_token;
-            this.refresh = json.refresh_token;
-            this.expires = Date.now() + json.expires_in * 1000;
+            else {
+                this.access = json.access_token;
+                this.refresh = json.refresh_token;
+                this.expires = Date.now() + json.expires_in * 1000;
+            }
         }
         return this.access;
     }
@@ -106,6 +109,7 @@ class Api {
             }
         });
         const json = await res.json();
+        console.log(json);
         if (json.errors) {
             throw new Error(json.errors[0].message);
         }
