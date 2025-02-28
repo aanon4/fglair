@@ -109,7 +109,6 @@ class Api {
             }
         });
         const json = await res.json();
-        console.log(json);
         if (json.errors) {
             throw new Error(json.errors[0].message);
         }
@@ -153,6 +152,43 @@ class Api {
             },
             body: JSON.stringify({
                 batch_datapoints: properties
+            })
+        });
+        const json = await res.json();
+        if (json.errors) {
+            throw new Error(json.errors[0].message);
+        }
+        return json;
+    }
+
+    async _getDeviceProperty(propkey) {
+        const res = await fetch(`https://ads-field.aylanetworks.com/apiv1/properties/${propkey}/datapoints.json`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `auth_token ${await this.token()}`
+            }
+        });
+        const json = await res.json();
+        if (json.errors) {
+            throw new Error(json.errors[0].message);
+        }
+        return json;
+    }
+
+    async _setDeviceProperty(propkey, value) {
+        const res = await fetch(`https://ads-field.aylanetworks.com/apiv1/properties/${propkey}/datapoints.json`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `auth_token ${await this.token()}`
+            },
+            body: JSON.stringify({
+                datapoint: {
+                    value: `${value}`
+                }
             })
         });
         const json = await res.json();
