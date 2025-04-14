@@ -96,7 +96,9 @@ class Api {
                     Accept: "application/json"
                 },
                 body: JSON.stringify({
-                    refresh_token: this.refresh
+                    user: {
+                        refresh_token: this.refresh
+                    }
                 })
             });
             let json = await res.json();
