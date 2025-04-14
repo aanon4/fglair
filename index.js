@@ -99,16 +99,34 @@ class Api {
                     refresh_token: this.refresh
                 })
             });
-            const json = await res.json();
+            let json = await res.json();
             if (json.error) {
                 // If refresh fails, login again
-                await this.login();
+                const res = await fetch(`https://${this.target.login}/users/sign_in.json`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    body: JSON.stringify({
+                        user: {
+                            email: this.username,
+                            password: this.password,
+                            application: {
+                                app_id: this.target.id,
+                                app_secret: this.target.secret
+                            }
+                        }
+                    })
+                });
+                json = await res.json();
+                if (json.error) {
+                    throw new Error(json.error)
+                }
             }
-            else {
-                this.access = json.access_token;
-                this.refresh = json.refresh_token;
-                this.expires = Date.now() + json.expires_in * 1000;
-            }
+            this.access = json.access_token;
+            this.refresh = json.refresh_token;
+            this.expires = Date.now() + json.expires_in * 1000;
         }
         return this.access;
     }
