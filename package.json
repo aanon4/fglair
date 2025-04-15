@@ -1,6 +1,6 @@
 {
   "name": "fglair",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "FGLAir API Client",
   "main": "index.js",
   "scripts": {

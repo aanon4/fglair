@@ -232,6 +232,11 @@ class Api {
         return json;
     }
 
+    async update(dsn) {
+        const props = await this._getDeviceProperties(dsn);
+        return await this._setDeviceProperty(props.refresh.key, 1);
+    }
+
     async getDeviceState(dsn) {
         const props = await this._getDeviceProperties(dsn);
         return {
